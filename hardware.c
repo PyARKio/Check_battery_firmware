@@ -25,6 +25,7 @@ char new_line = 10;
 int Num_Com = 0;
 
 char digits[10] = {48, 49, 50, 51, 52, 53, 54, 55, 56, 57};
+char point[1] = {86};
 
 char dist_thouthend=0;
 char dist_hundrets=0;
@@ -137,6 +138,8 @@ void func_send_ADC_result(void)
 	VAR_U = (VAR*5120.0)/1024;	// 0.0025 for mega8, 0.001074 for mega328
 	func_convertion_data(VAR_U);
 
+	while (!(UCSRA&(1<<UDRE))) {};
+	UDR = point[0];
 	while (!(UCSRA&(1<<UDRE))) {};
 	UDR = digits[dist_thouthend];
 	while (!(UCSRA&(1<<UDRE))) {};
